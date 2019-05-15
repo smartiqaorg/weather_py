@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     # Check GitHub Repository API functionality
     repo = Repository()
-    info = repo.list_branches(TEST_USER, TEST_REPO)
+    repo.list_branches(TEST_USER, TEST_REPO)
     repo.list_commits(TEST_USER, TEST_REPO)
     repo.get_commit(TEST_USER, TEST_REPO, TEST_COMMIT_SHA)
     repo.get_commit_author(TEST_USER, TEST_REPO, TEST_COMMIT_SHA)
