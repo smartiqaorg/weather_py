@@ -74,26 +74,6 @@ class Issue:
         return self.api.call('PATCH', f'/repos/{owner}/{repo}/issues/{number}', headers=self.headers, json=json)
 
 
-class Repository:
-
-    def __init__(self):
-        self.api = API()
-
-    # ------- Work with Branches -------------
-    def list_branches(self, owner, repo):
-        return self.api.call('GET', f'/repos/{owner}/{repo}/branches')
-
-    # ------- Work with Commits --------------
-    def list_commits(self, owner, repo, branch='master'):
-        return self.api.call('GET', f'/repos/{owner}/{repo}/commits', json={'sha': branch})
-
-    def get_commit(self, owner, repo, commit_sha):
-        return self.api.call('GET', f'/repos/{owner}/{repo}/commits/{commit_sha}')
-
-    def get_commit_author(self, owner, repo, commit_sha):
-        return self.get_commit(owner, repo, commit_sha)['author']
-
-
 if __name__ == '__main__':
     # Check GitHub User API functionality
     user = User(AUTH_TOKEN)
@@ -109,10 +89,3 @@ if __name__ == '__main__':
     issue.get(TEST_USER, TEST_REPO, TEST_ISSUE_NUM)
     issue.edit_title(TEST_USER, TEST_REPO, TEST_ISSUE_NUM, 'Smartiqa Test issue 3')
     issue.edit_body(TEST_USER, TEST_REPO, TEST_ISSUE_NUM, 'Smartiqa Test body 3')
-
-    # Check GitHub Repository API functionality
-    repo = Repository()
-    repo.list_branches(TEST_USER, TEST_REPO)
-    repo.list_commits(TEST_USER, TEST_REPO)
-    repo.get_commit(TEST_USER, TEST_REPO, TEST_COMMIT_SHA)
-    repo.get_commit_author(TEST_USER, TEST_REPO, TEST_COMMIT_SHA)

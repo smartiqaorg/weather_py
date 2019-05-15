@@ -16,12 +16,6 @@ class Http:
                 result = self.get_request(url, params, headers)
             elif method is 'POST':
                 result = self.post_request(url, data, headers)
-            elif method is 'PUT':
-                result = self.put_request(url, data, headers)
-            elif method is 'DELETE':
-                result = self.delete_request(url, headers)
-            elif method is 'PATCH':
-                result = self.patch_request(url, json, headers)
             else:
                 raise Exception(f"Request type is not defined! Provided type: {method}")
             result.raise_for_status()
@@ -34,15 +28,6 @@ class Http:
 
     def post_request(self, url, data, headers):
         return requests.post(url, data=data, headers=headers)
-
-    def put_request(self, url, data, headers):
-        return requests.put(url, data=data, headers=headers)
-
-    def delete_request(self, url, headers):
-        return requests.delete(url, headers=headers)
-
-    def patch_request(self, url, json, headers):
-        return requests.patch(url, json=json, headers=headers)
 
     @staticmethod
     def parse_result(result):
@@ -62,7 +47,4 @@ if __name__ == '__main__':
     print(f'Sending HTTP requests to {http.base_url}...')
     http.send_request('GET', '/get')
     http.send_request('POST', '/post', data={'test_key': 'test_value'})
-    http.send_request('PUT', '/put', data={'test_key': 'test_value'})
-    http.send_request('PATCH', '/patch', data={'test_key': 'test_value'})
-    http.send_request('DELETE', '/delete')
     print(f'HTTP requests to {http.base_url} are successful!')
