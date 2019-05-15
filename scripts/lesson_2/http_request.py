@@ -5,9 +5,8 @@ import json
 
 class Http:
 
-    def __init__(self, host, protocol, auth_cred=None):
+    def __init__(self, host, protocol):
         self.base_url = f'{protocol}://{host}'
-        self.auth_cred = auth_cred
 
     def send_request(self, method, relative_url, headers=None, params=None, data=None, json=None):
         url = ''.join([self.base_url, relative_url])
@@ -26,14 +25,14 @@ class Http:
             print(f'HTTP error occurred: {err}')
         return Http.parse_result(result.text)
 
-    def get_request(self, url, params, headers=None):
-        return requests.get(url, params=params, headers=headers, auth=self.auth_cred)
+    def get_request(self, url, params, headers):
+        return requests.get(url, params=params, headers=headers)
 
-    def post_request(self, url, data, headers=None):
-        return requests.post(url, data=data, headers=headers, auth=self.auth_cred)
+    def post_request(self, url, data, headers):
+        return requests.post(url, data=data, headers=headers)
 
-    def patch_request(self, url, json, headers=None):
-        return requests.patch(url, json=json, headers=headers, auth=self.auth_cred)
+    def patch_request(self, url, json, headers):
+        return requests.patch(url, json=json, headers=headers)
 
     @staticmethod
     def parse_result(result):

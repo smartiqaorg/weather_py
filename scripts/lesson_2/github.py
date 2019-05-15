@@ -1,7 +1,9 @@
 from http_request import Http
 
 TEST_USER = 'smartiqa-test'
-AUTH_TOKEN = '606ceeb93e6f8a771040abafb46258a762bab277'
+# GitHub restricts pushing Authentication Token to public repo
+# That's why it's necessary to update it with valid token before running
+AUTH_TOKEN = '<Please change me for b4a1d07f32....c5ca8594f>'
 TEST_REPO = 'test_repository_2'
 TEST_ISSUE_NUM = 3
 TEST_COMMIT_SHA = '063b6dde79957b9f34a0a5f74f4febe0e34cbba5'
