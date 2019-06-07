@@ -65,4 +65,4 @@ if __name__ == '__main__':
     http.send_request('PUT', '/put', data={'test_key': 'test_value'})
     http.send_request('PATCH', '/patch', data={'test_key': 'test_value'})
     http.send_request('DELETE', '/delete')
-    print(f'HTTP requests to {http.base_url} are successful!')
+    print(f'Finished sending HTTP requests to {http.base_url}')
