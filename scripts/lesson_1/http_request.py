@@ -8,7 +8,7 @@ class Http:
     def __init__(self, host, protocol):
         self.base_url = f'{protocol}://{host}'
 
-    def send_request(self, method, relative_url, headers=None, params=None, data=None, json=None):
+    def send_request(self, method, relative_url, headers=None, params=None, data=None):
         url = ''.join([self.base_url, relative_url])
         result = None
         try:
@@ -47,4 +47,4 @@ if __name__ == '__main__':
     print(f'Sending HTTP requests to {http.base_url}...')
     http.send_request('GET', '/get')
     http.send_request('POST', '/post', data={'test_key': 'test_value'})
-    print(f'HTTP requests to {http.base_url} are successful!')
+    print(f'Finished sending HTTP requests to {http.base_url}')
