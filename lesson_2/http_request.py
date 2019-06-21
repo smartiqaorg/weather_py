@@ -3,7 +3,7 @@ from requests.exceptions import HTTPError
 import json
 
 
-class Http:
+class HTTP:
 
     def __init__(self, host, protocol):
         self.base_url = f'{protocol}://{host}'
@@ -21,7 +21,7 @@ class Http:
             result.raise_for_status()
         except HTTPError as err:
             print(f'HTTP error occurred: {err}')
-        return Http.parse_result(result.text)
+        return HTTP.parse_result(result.text)
 
     def get_request(self, url, params, headers):
         return requests.get(url, params=params, headers=headers)
@@ -29,9 +29,16 @@ class Http:
     def post_request(self, url, data, headers):
         return requests.post(url, data=data, headers=headers)
 
+    def site_is_up(self):
+        try:
+            self.send_request('GET', '')
+        except HTTPError:
+            return False
+        return True
+
     @staticmethod
     def parse_result(result):
-        return json.loads(result) if Http.is_json(result) else result
+        return json.loads(result) if HTTP.is_json(result) else result
 
     @staticmethod
     def is_json(str):
@@ -43,7 +50,7 @@ class Http:
 
 
 if __name__ == '__main__':
-    http = Http('httpbin.org', 'https')
+    http = HTTP('httpbin.org', 'https')
     print(f'Sending HTTP requests to {http.base_url}...')
     http.send_request('GET', '/get')
     http.send_request('POST', '/post', data={'test_key': 'test_value'})
