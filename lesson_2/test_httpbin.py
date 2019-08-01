@@ -22,8 +22,7 @@ class TestHttpbin:
 
         def http_manager_teardown():
             print(f'HTTP manager for {self.HOST} destroyed')
-        request.addfinalizer(http_manager_teardown)
-        return HTTP(self.HOST, self.PROTOCOL)
+        yield HTTP(self.HOST, self.PROTOCOL)
 
     # ------ Tests ------
     def test_site_is_up(self, http_manager):
@@ -31,6 +30,10 @@ class TestHttpbin:
         Check if httpbin.org address is available
         """
         assert(http_manager.site_is_up())
+
+    def test_headers_host(self, http_manager):
+        response = http_manager.send_request('GET', '/get')
+        assert (response['headers']['Host'] == self.HOST)
 
     def test_get_request_url(self, http_manager):
         """
@@ -46,7 +49,7 @@ class TestHttpbin:
         Test GET request with params handling.
         GET request is sent to 'httpbin.org/get?param=value' address.
         """
-        response = http_manager.send_request('GET', '/get', {self.URL_PARAM_NAME: self.URL_PARAM_VALUE})
+        response = http_manager.send_request('GET', '/get', {self.URL_PARAM_NAME: self.URL_PARAM_VALUE,self.URL_PARAM_NAME: self.URL_PARAM_VALUE})
         assert(response['headers'][self.URL_PARAM_NAME.capitalize()] == self.URL_PARAM_VALUE)
 
     def test_post_request_url(self, http_manager):
@@ -65,3 +68,8 @@ class TestHttpbin:
         """
         response = http_manager.send_request('POST', '/post', data=self.JSON_DATA)
         assert(response['form'] == self.JSON_DATA)
+
+    def test_delete_request_url(self, http_manager):
+        expected_url = f'{self.PROTOCOL}://{self.HOST}/delete'
+        response = http_manager.send_request('DELETE', '/delete')
+        assert(response['url'] == expected_url)
