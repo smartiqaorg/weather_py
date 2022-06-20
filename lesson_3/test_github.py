@@ -43,16 +43,16 @@ class GitHubUser:
 
     # ------- Reset User info to Default ------
     def reset(self):
-        return self.update({'bio': 'Default bio', 'name': 'Smartiqa Online Courses'})
+        return self.update({'bio': 'Default bio', 'name': 'Tatyana K'})
 
 
 class TestGitHub:
 
-    TEST_USER = 'smartiqa-test'
+    TEST_USER = 'tkutenkova-test'
     TEST_USER_INFO = {
         'login': TEST_USER,
         'id': 50556714,
-        'name': 'Smartiqa Online Courses',
+        'name': 'Tatyana K',
         'public_repos': 3,
         'bio': 'Default bio'
     }
@@ -75,7 +75,7 @@ class TestGitHub:
     def test_get_user_info_name(self, api_manager):
         """
         Get GitHub User name by their login and check
-        Example name: 'smartiqa-test'
+        Example name: 'tkutenkova-test'
         """
         user_name = GitHubUser(api_manager).get_name(self.TEST_USER)
         assert(self.TEST_USER_INFO['name'] == user_name)
